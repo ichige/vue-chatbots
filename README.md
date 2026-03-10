@@ -16,4 +16,8 @@ uv init
 uv venv --python 3.14
 ```
 
+## アプリの起動
 
+```bash
+uv run streamlit run app/main.py
+```
