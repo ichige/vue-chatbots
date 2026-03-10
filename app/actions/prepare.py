@@ -13,5 +13,12 @@ def prepare():
     # confirm ダイアログの初期化
     if "confirm" not in st.session_state:
         st.session_state["confirm"] = False
+    # chat context
+    if "chat_ctx" not in st.session_state:
+        st.session_state["chat_ctx"] = {}
+    # 質問入力値
+    if "input_prompt" in st.session_state:
+        st.session_state["input_prompt"] = ""
+
     # 会話のリセット
     reset_chat_histories()

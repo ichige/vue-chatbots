@@ -1,5 +1,8 @@
 import streamlit as st
-from actions.prepare import prepare
+from actions import (
+    prepare,
+    workflows_run
+)
 from ui import (
     render_chat_histories,
     render_chat_input,
@@ -15,13 +18,14 @@ prepare()
 # sidebar
 render_sidebar()
 
-# チャット履歴のリセット
-
 # チャット履歴を表示
 render_chat_histories()
 
+# ユーザの質問欄を表示
+render_chat_input()
+
+# LLM問い合わせ処理
+workflows_run()
+
 # リセットボタンを表示
 render_reset_btn()
-
-# ユーザの質問待ち
-render_chat_input()

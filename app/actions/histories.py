@@ -6,4 +6,5 @@ def reset_chat_histories():
     """
     if st.session_state.confirm:
         st.session_state.messages = []
+        st.session_state.chat_ctx = {}
         st.session_state.confirm = False

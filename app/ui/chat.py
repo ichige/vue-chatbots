@@ -13,13 +13,10 @@ def render_chat_input():
     """
     チャット入力を表示
     """
-    from actions.workflows import workflows_run
     prompt = st.chat_input(
         placeholder="質問を入力してください",
-        key="input_prompt",
-        on_submit=workflows_run,
-        args=["input_prompt"],
     )
+    st.session_state.input_prompt = prompt
 
 def render_reset_btn():
     """

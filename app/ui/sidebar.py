@@ -15,6 +15,7 @@ def render_sidebar():
                 "gemini-2.5-pro",
             ],
             key="gemini_model",
+            index=3,
         )
 
         # deep thinking
