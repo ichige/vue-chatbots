@@ -19,5 +19,5 @@ uv venv --python 3.14
 ## アプリの起動
 
 ```bash
-uv run streamlit run app/main.py
+uv run streamlit --env-file .env run app/main.py
 ```
