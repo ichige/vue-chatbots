@@ -8,6 +8,8 @@ Streamlit + LlamaIndex で、AI を利用した簡易的なアプリを作って
 
 ## Vue Document Chat
 
+![image](./assets/vuechat.png)
+
 しばらく前に vue.js の案件で開発していた際に、gemini または Copilot あたりに質問すると、古い情報ばかり拾ってきて話にならなかったという経緯があり、だったら自前で RAG を用意してやろうという事でこちらのアプリを作ったまでです。  
 ※ 無料版だから余計に嘘が多いのでしょうけど…。
 
