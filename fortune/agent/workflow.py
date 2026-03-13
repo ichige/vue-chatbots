@@ -9,9 +9,11 @@ from workflows.events import (
     StartEvent,
     StopEvent
 )
+
+from llama_index.core.llms import ChatMessage
 from .agents import function_agent
 from .exceptions import InputRequiredException
-from .ui.dialog import render_input_dialog
+from ui.dialog import render_input_dialog
 
 class FortuneFlow(Workflow):
     """
@@ -25,12 +27,26 @@ class FortuneFlow(Workflow):
         """
         agent = function_agent()
         # QAの履歴を追加する。
-        additional_messages = "\n".join(st.session_state.additional_messages)
-        print(f"追加メッセージ  {additional_messages}")
-        user_massage = f"私と相性の良さそうな犬種を選んでください。\n{additional_messages}"
+        user_massage = st.session_state.user_massage
+        chat_histories = [
+            ChatMessage(
+                role="user",
+                content=user_massage
+            )
+        ]
+        additional_messages = st.session_state.additional_messages
+        for message in additional_messages:
+            chat_histories.append(ChatMessage(
+                role="assistant",
+                content=message.get("assistant"),
+            ))
+            chat_histories.append(ChatMessage(
+                role="user",
+                content=message.get("user"),
+            ))
 
         try:
-            handler = agent.run(user_msg=user_massage)
+            handler = agent.run(chat_history=chat_histories)
             async for _event in handler.stream_events():
                 # tool で発生したエラーイベントの購読
                 if hasattr(_event, "tool_output") and _event.tool_output.is_error:
@@ -67,10 +83,12 @@ def agent_workflow_run():
     """
     AgentWorkflow を非同期実行する
     """
+    st.session_state.app_run = True
     result = asyncio.run(main())
     if result:
         # セッションの初期化
         st.session_state.additional_messages = []
         st.session_state.workflow_run = False
         # 結果の表示
-        st.write(result)
+        st.session_state.result = result
+        st.rerun()

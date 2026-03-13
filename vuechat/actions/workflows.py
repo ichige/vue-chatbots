@@ -57,7 +57,7 @@ def workflows_run():
                 st.markdown(f"[{url}]({url})")
 
         # セッションへ保存
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append({"role": "assistant", "content": { "text": response.text, "doc_urls": response.doc_urls }})
 
 def assistant_run(query: str, status: StatusContainer) -> ChatResponse:
     """

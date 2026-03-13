@@ -7,7 +7,15 @@ def render_chat_histories():
     """
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+            if message["role"] == "user":
+                st.markdown(message["content"])
+            else:
+                st.markdown(message["content"]["text"])
+                if message["content"]["doc_urls"]:
+                    st.divider()
+                    st.caption("参考リンク:")
+                    for url in message["content"]["doc_urls"]:
+                        st.markdown(f"[{url}]({url})")
 
 def render_chat_input():
     """

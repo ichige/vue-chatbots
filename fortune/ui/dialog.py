@@ -11,14 +11,9 @@ def render_input_dialog(**kwargs) -> None:
         placeholder=kwargs.get("placeholder", "")
     )
     if st.button("送信"):
-        print(name)
         if name:
              # QA 履歴に書き込み
-            st.session_state.additional_messages.append(f"""
-            ** QA **
-Q. {kwargs.get("message", "message")}
-A. {name}
-            """.strip())
+            st.session_state.additional_messages.append({ "assistant": kwargs.get("message"), "user": name })
         # Workflow 再起動フラグ
         st.session_state.workflow_run = True
         # dialog から抜けるには rerun が必要。
